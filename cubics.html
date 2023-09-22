@@ -1,0 +1,163 @@
+<!DOCTYPE HTML>
+<!--
+	Stellar by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<link rel="stylesheet" href="blog.css">
+<html>
+	<head>
+		<title>Blog</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="shortcut icon" href="images/tabicon.svg">
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+		<script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+    	<script>
+   	 	// Make the div with id 'mycell' a Sage cell
+    	sagecell.makeSagecell({inputLocation:  '#mycell',
+                           template:       sagecell.templates.minimal,
+                           evalButtonText: 'Plot Cubic Surfaces!'});
+    	// Make *any* div with class 'compute' a Sage cell
+    	sagecell.makeSagecell({inputLocation: 'div.compute',
+                           evalButtonText: 'Evaluate'});
+    </script>
+	</head>
+	
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+				
+				<!-- Header -->
+					<header id="header">
+						<h1>Cubic Visualization</h1>
+					</header>
+					<nav id="nav">
+						<ul>
+							<li><a href="index.html">Introduction</a></li>
+							<li><a href="generic.html">Academic Projects</a></li>
+							<li><a href="#blog.html" class="active">Blog</a></li>
+						</ul>
+					</nav>
+				<!-- Main -->
+					<div id="main">
+
+						<!-- Content -->
+							<section id="content" class="main">
+								
+								<div class="row">
+    <div class="card">
+      <h2>Cubic Surfaces</h2>
+      <h5>A visualization of real lines on real cubic surfaces, Sep 12, 2023</h5>
+	  
+      <p>Given an object, one of the first questions you could ask is what it looks like. Unsurprisingly, understanding what such objects look like can then be used to study the objects themselves. The problem is to do this visualization carefully enough that it actually gives useful information. </p>
+	  <p>The study of cubics is particularly interesting because despite being a well-studied object for hundreds of years in the field of algebraic geometry (and <a href="https://www.semanticscholar.org/paper/The-non-singular-cubic-surfaces-%3A-a-new-method-of-Segre/62cdf5bdb7ef66defca8cd62ce348beb63ee901c">entire books</a> involving calculations on such surfaces), their properties continue to inspire plenty of research.</p>
+	  <div style="display: flex; justify-content:center;">
+		<img src="images/fermat.png" alt="Fermat cubic surface from two angles" width="600" height="250" style="margin: 0 auto">
+		
+	</div> 
+	  <p>Here, a cubic refers to either a polynomial equation, such as \(f(x,y,z,t)=x^3+z^3+y^3+t^3\), or the surface containing points \((x,y,z,t)\) where \(f(x,y,z,t)=0\). Above, we have the Fermat cubic, which is defined by \(f(x,y,z,t)=x^3+y^3+z^3-t^3\). Points on the surface can either involve complex or real numbers, and surfaces over either are interesting. When you plot the objects, there are often lines sitting on the surfaces, which is strange, given the curvy nature of such surfaces. In this project, I set out to study these lines.</p>
+	  <div style="display: flex; justify-content:center;">
+		<img src="images/cubiclines.png" alt="Cubic surface with lines on it." width="600" height="250" style="margin: 0 auto">
+		
+	</div> 
+	  <p>One foundational result in algebraic geometry is that there are precisely 27 lines on a cubic surface. This beautiful result from the 1800s has further inspired research on cubic surfaces even to this day, even leading to a <a href="http://cubics.wikidot.com">themed list of open research questions</a>. Not all of the lines are visible over just the real numbers. This project aims to understand cubic surfaces in terms of the lines that are visible over the real numbers. Furthermore, line behavior is only nice when the cubic surfaces are smooth. This corresponds to the surface actually looking smooth--there are no sharp cusps or nodes (see the center of the below surface for a node). </p>
+	  <div style="display: flex; justify-content:center;">
+		<img src="images/nodalcubic.png" alt="Nodal cubic surface, which looks like a pinched blanket near the center." width="600" height="250" style="margin: 0 auto">
+		
+	</div> 
+	  <p>Interesting behavior is bound to happen when you change a cubic surface into another and back into itself. The lines could shuffle between each other, or even flip in orientation. Using this information, we could understand a lot on how smooth cubic surfaces behave. Consequently, I created graphing software to animate a changing cubic surface and its lines. An interesting question arises in the creation of this software.</p>
+	  <p>First was a paradox in terms of what we wanted to study. We want to animate only the smooth cubic surfaces to understand such surfaces, but to do this we require an understanding of what makes a cubic surface smooth. To address this problem, there is a calculation done by George Salmon, one of the mathematicians who proved there are 27 lines, that demonstrates a rephrasing of this question. Cubic surfaces can generally be expressed in terms of cubes of five linear forms \(\ell_1,\ell_2,\ell_3,\ell_4,\ell_5\) where \[\ell_1+\ell_2+\ell_3+\ell_4+\ell_5=0\]
+		(Here, a linear form refers to a degree 1 polynomial such as \(\ell=x+y-z\)). In particular, a cubic polynomial \(f\) can generally (<a href="https://arxiv.org/abs/1909.12538">according to a paper by Anna Siegal and Eunice Sukarto</a>) be expressed as a sum 
+		\[f=\ell_1^3+\ell_2^3+\ell_3^3+\ell_4^3+\ell_5^3\] 
+		As it turns out, we know a lot more about what makes a smooth cubic surface for such cubics! To imagine a space in which cubics could change, we use not the space of coefficents \(a_0,\dots,a_{19}\) and cubics in which each \(a_i\) yields a coefficient for a cubic monomial, but where each \(a_i\) yields a coefficient for one of the linear forms \(\ell_j\). Once we do this, there is a precise description of the non-smooth cubics through a polynomial called the discriminant \(\Delta(a_0,\dots,a_{19})\). It vanishes when the corresponding cubic is non-smooth. An implementation for calculating the discriminant for the mentioned cubic surfaces is available under the github respository.
+	  </p>
+	  <p>With this alternative space for visualizing cubics, we can visualize only smooth cubic surfaces changing! The visualization program is available on the repository, along with instructions on how to use it. For a sample, here's a button that plots an animation that passes through the discriminant (please be patient--cubic surfaces take a long time to bake).</p>
+	  <div style="display: flex; justify-content:center;"><div id="mycell"><script type="text/x-sage">
+		n=30 
+edge=15
+def u(t):
+ return base+v1*(3+cos(2*pi*t/n))+v2*(4+sin(2*pi*t/n))
+a,b,c=SR.var("a,b,c")
+s=SR.var('s')
+numlines=vector([3,3,7,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,7,7,3,3,3,3,3,3,3,3,3])
+base=vector([1,1,1,1])
+v1=vector([1,1,1,0])
+v2=vector([1,0,-1,0])
+V=[matrix([[0.0, 12.326403578344262, 2.913622735765135e-19, -15.0, -2.913622735764796e-19, 2.6735964216557417], [0.0, 12.326403578344262, -5.17689969051289e-31, -15.0, -1.0, -1.0], [4.6104204353739435, 4.6104204353739435, -5.6104204353739435, -5.6104204353739435, 0.0, 15.0]]),matrix([[-0.0005241143350369626, 12.223508113864211, 1.6393136847980827e-16, -15.0, -1.0911984636795555, -1.1169326924131149], [4.366449324913565, 9.879095968044556, -5.358025275418915, -12.113696782757447, 0.0, 15.0], [0.0, 12.22537726970572, -1.1925650031319216e-32, -15.0, 1.1925650031319216e-32, 2.7746227302942774]]),matrix([[0.0, 12.114539370927812, -5.87844156836214e-17, -15.0, 5.878441568362138e-17, 2.8854606290721945], [-0.4551371593541515, 0.6922428920999305, 0.0, -15.0, -0.6215940631847907, -12.714302064993584], [-0.7885416880591576, 5.28622708947965, 1.040245367116772, -12.07599894547704, 6.661338147750939e-16, -15.0], [-0.0018963937956106847, 12.10789597198184, -4.783499985006046e-16, -15.0, -1.2618800020301073, -1.5351255882163635], [0.6299747306429877, 8.440778566274464, -0.8310636011711282, -6.032687321865458, -4.440892098500626e-16, 14.999999999999998], [1.8886928124357807, 12.12534629451862, -2.343964517541991, -15.0, -2.461750444080428, 10.076499111839144], [0.4090276201206331, 12.149543919587737, -0.6134324042410506, -1.7492882893806505, 1.2212453270876722e-15, 15.0]]),matrix([[-0.46783068775220393, -0.11580635242029277, 3.552713678800501e-15, -15.0, -0.555167036413259, -11.370498465534247], [0.3784061513911263, 13.253805899270235, -0.5996334234796152, -0.9722295027428288, 4.996003610813204e-16, 15.0], [0.0, 11.996738872554072, 2.7212060474506714e-17, -15.0, -2.7212060474506677e-17, 3.0032611274459224]]),matrix([[0.0, 11.874786501479969, -7.292215143147981e-18, -15.0, 7.292215143147969e-18, 3.1252134985200404], [0.3583589624236492, 14.038263306283605, -0.5964908543004324, -0.49317467268511056, -1.0547118733938987e-15, 15.0], [-0.4752511986281866, -0.3817098862013585, 0.0, 15.0, -0.5187586383698388, 9.420010570053002]]),matrix([[0.0, 11.751587240278093, 2.8196413992514965e-17, -15.0, -2.8196413992514935e-17, 3.2484127597219064], [0.3427384378503433, 14.692273304099436, -0.598542163021302, -0.1573666735644172, -5.551115123125783e-17, 15.0], [-0.48129614440715907, -0.09434696536088936, -3.552713678800501e-15, 15.0, -0.49440913787483964, 8.726430964448838]]),matrix([[-0.4870096586045854, 0.09880017882963495, 0.0, 15.0, -0.4769534211465718, 8.11716782265369], [0.19369172572644366, 15.0, -0.6103638149504854, 0.06808206895091451, -0.13666558345411223, 14.726668833091775], [0.0, 11.630280413651922, -7.021155078303401e-18, -15.0, 7.021155078303438e-18, 3.369719586348079]]),matrix([[0.0, 11.514373970540262, -7.477259407121789e-17, -15.0, 7.477259407121797e-17, 3.4856260294597408], [0.0, 15.0, -0.6299386385752332, 0.19764628640459903, -0.30898045561150167, 14.222358362594406], [-0.4927861191495907, 0.2239461311043156, 0.0, 15.0, -0.46405387144907984, 7.568282909527976]]),matrix([[0.0, 15.0, -0.6411481962008894, 0.2621477529717129, -0.2906922146752944, 13.784497400273132], [0.0, 11.407854415213608, 6.421424248674269e-18, -15.0, -6.42142424867426e-18, 3.5921455847863815], [-0.4987611815849202, 0.2965781192783618, 0.0, 15.0, -0.45439276341565105, 7.071092934817861]]),matrix([[0.0, 15.0, -0.6526357638949885, 0.2769938104554833, -0.27563082355475804, 13.399655020311938], [0.0, 11.31524463287255, -1.8488927466117464e-32, -15.0, 1.8488927466117464e-32, 3.6847553671274493], [-0.5049298971741766, 0.32754849184569695, 0.0, 15.0, -0.4471211761958034, 6.62507058150929]]),matrix([[0.0, 11.241569617512338, -2.5358037962472752e-33, -15.0, 2.5358037962472752e-33, 3.7584303824876613], [-0.5111938606062139, 0.32544477783304565, -1.7763568394002505e-15, 15.0, -0.44165096275308136, 6.235005449908442], [0.0, 15.0, -0.6639967815189806, 0.2547608934340213, -0.26355511792945896, 13.060517779438403]]),matrix([[0.0, 15.0, -0.6746749894666602, 0.2063032959365687, -0.25448180460687947, 12.763949713345298], [-0.5173856127093731, 0.29752355266943464, 0.0, 15.0, -0.4375748747259811, 5.909503704347086], [0.0, 11.192177786265207, 2.2325976010935774e-17, -15.0, -2.2325976010935645e-17, 3.8078222137347923]]),matrix([[-0.5232855645805605, 0.24989724836962443, 1.7763568394002505e-15, 15.0, -0.4346469926576195, 5.659817620701206], [0.0, 15.0, -0.6840006302341348, 0.14081165131086726, -0.2486228336205263, 12.510354757429932], [0.0, 11.1723598487542, -1.5734353344086155e-16, -15.0, 1.573435334408614e-16, 3.827640151245823]]),matrix([[0.0, 15.0, -0.6912597956539765, 0.06522890110849244, -0.24633330270294523, 12.303776233370703], [-0.5286363361147858, 0.1872426150475792, 1.7763568394002505e-15, 15.0, -0.43279568356069786, 5.49860829965178], [0.0, 11.18672061186365, 2.917890116255058e-17, -15.0, -2.9178901162550603e-17, 3.813279388136353]]),matrix([[0.0, 15.0, -0.6957945530629749, -0.016681451202472553, -0.2480563611801898, 12.152434935388344], [0.0, 11.238309843873605, 6.725038380698196e-17, -15.0, -6.725038380698196e-17, 3.761690156126387], [-0.5331550021721081, 0.11221148870220095, 0.0, 15.0, -0.4321534790260042, 5.438574799932404]]),matrix([[0.0, 15.0, -0.6971138736839992, -0.10533773055449491, -0.25427057759728416, 12.069493091014964], [-0.5365419153320656, 0.024721042037011007, -1.7763568394002505e-15, 15.0, -0.43309358543104803, 5.4911679368201], [0.0, 11.327621522558545, 5.534733711408893e-19, -14.999999999999998, -5.5347337114088e-19, 3.672378477441454]]),matrix([[0.0, 15.0, -0.6949782551642212, -0.20624179315628743, -0.26546690227705383, 12.073942513472504], [-0.5384843565061638, -0.07876499585718551, 0.0, 15.0, -0.43627006328660567, 5.665866813139163], [0.0, 11.451713965673417, -1.8488927466117464e-32, -15.0, 1.8488927466117464e-32, 3.5482860343265847]]),matrix([[0.0, 15.0, -0.6894186824450094, -0.33093482936064844, -0.2822054107574576, 12.191848690096574], [0.0, 11.603815499042817, 5.977335766215173e-17, -15.0, -5.977335766215175e-17, 3.3961845009571676], [-0.5386520003269353, -0.20609489068686093, 0.0, 15.0, -0.4426754523550116, 5.970700098105633]]),matrix([[-0.5366737373705113, -0.37109431911380636, 7.105427357601002e-15, 15.0, -0.453771116868829, 6.414965342011502], [0.0, 15.0, -0.6806652611964479, -0.4988828672008486, -0.30533440674117823, 12.4590865020015], [0.0, 11.773741182539672, 3.082625512064199e-34, -15.0, -3.082625512064199e-34, 3.2262588174603297]]),matrix([[-0.5320568618726623, -0.4660695423794002, 0.0, -15.0, -0.4718686736016551, -7.9599793835096975], [0.0, 11.949184017016321, 7.630791012452286e-17, -15.000000000000002, -7.630791012452289e-17, 3.0508159829836616], [0.0, 15.0, -0.6689676105744189, -0.7430026322443515, -0.3365635500549732, 12.929334754229536]]),matrix([[-0.01460239533472052, 12.142686626896946, -1.1102230246251565e-16, -14.999999999999998, -3.2369542228587926, 8.452163218489964], [-0.17709700823629593, 10.139079953224376, -5.551115123125783e-16, -15.000000000000002, -1.5353767528220919, -14.270382542963185], [-0.5238864558957095, -0.11130781602495846, 3.552713678800501e-15, -15.0, -0.5014587130563175, -8.822907633631095], [-0.006485466639714055, 12.093430481591058, 3.0878077872387166e-16, -15.0, -1.4376517102447515, -2.4665856507826183], [0.0, 12.11756075062476, 6.222238908767073e-18, -15.0, -6.222238908767067e-18, 2.882439249375242], [0.0, 15.0, -0.6541982163677675, -1.1289412871807678, -0.3801486931297235, 13.701827696997311], [1.0239624109832732, 9.881495489156208, -1.3032941743152129, -10.374972188520227, -4.440892098500626e-16, 14.999999999999998]]),matrix([[-0.0012668272465630182, 12.2634940939945, 3.419573652019281e-16, -15.0, -1.1608099332801964, -1.2466213620631246], [3.7422398240488697, 12.278994648475143, -4.578148165463187, -15.0, -1.021632981368974, 12.956734037262052], [0.4360782145662965, 14.937598524701771, -0.6697550826969992, -1.8506507263940006, -8.881784197001252e-16, 15.0], [-0.4664874848087259, 5.319469439075238, 0.214042016032434, -14.571915967935132, -0.8187374248340094, -15.0], [0.6317540975375433, 10.002113030842173, -0.8425867233923037, -5.862873487063976, 0.0, 14.999999999999998], [-0.5091921240930899, 0.518179951757289, -8.881784197001252e-16, -15.0, -0.5561846081733259, -10.10184857946972], [0.0, 12.26783626339425, 9.054787346300604e-18, -15.0, -9.054787346300607e-18, 2.7321637366057576]]),matrix([[4.742099161247135, 7.475110099460148, -5.740505743250106, -9.044437786494887, 0.0, 15.0], [0.0, 12.391798351721095, 2.696176706978331e-17, -15.0, -2.6961767069783295e-17, 2.6082016482789085], [-0.0002570676733091304, 12.390895289956875, 7.3785378848501e-16, -15.0, -1.039633475139125, -1.0439621112306816]]),matrix([[4.959404359780377, 7.355874937793085, -5.958431056155732, -8.834332829977678, 3.552713678800501e-15, -15.0], [0.0001782919422428364, 12.485187734626683, 2.585822181377928e-17, -15.000000000000002, -0.9689984469337868, -0.9713727205263787], [0.0, 12.484546172114854, 7.163813614524635e-17, -15.0, -7.163813614524639e-17, 2.5154538278851373]]),matrix([[5.082237855278682, 11.238948114107536, -6.076654383635784, -13.430407548614681, 0.0, -15.0], [0.00039280670669228357, 12.545717242608662, -8.580375993050282e-16, -15.0, -0.9257087942466726, -0.9384674649129803], [0.0, 12.544276983216848, 4.460740613676774e-17, -15.0, -4.4607406136767766e-17, 2.4557230167831428]]),matrix([[4.6005752803112205, 12.580194699070828, -5.4892584766565395, -15.0, 0.931682338349054, -13.13663532330189], [0.0, 12.571640444141478, 7.680728743841228e-18, -15.0, -7.680728743841228e-18, 2.4283595558585254], [0.0004951507534451949, 12.57348221728174, -3.677613769070831e-16, -14.999999999999998, -0.9009573604487622, -0.922860361414297]]),matrix([[0.0, 12.568949452765274, -3.789815852044852e-17, -15.0, 3.7898158520448554e-17, 2.43105054723472], [0.000528595607635296, 12.570936067717513, -8.229094489164979e-17, -15.0, -0.8909146063874123, -0.9172638402723992], [4.123253277475277, 12.577428514092949, -4.921308194457614, -15.0, 1.5700633399899422, -11.859873320020114]]),matrix([[0.0, 12.539455759078697, -3.212284643541687e-17, -15.0, 3.212284643541686e-17, 2.4605442409213034], [4.296316443530781, 12.547960885479107, -5.139629407848097, -14.999999999999998, 1.243202914545539, -12.51359417090892], [0.000507909955143937, 12.541375511258686, 3.2406802935591728e-16, -15.0, -0.8942270356744393, -0.9193743524371645]]),matrix([[4.931786718411766, 12.171614203283013, -5.923839949553441, -14.611486703623513, -1.7763568394002505e-15, -15.000000000000002], [0.0, 12.486794275146533, 3.43807675363286e-17, -15.0, -3.438076753632864e-17, 2.513205724853459], [0.00043032812345256133, 12.488419993935587, 1.391790328819642e-15, -15.0, -0.911329263238865, -0.929667342264785]]),matrix([[4.788673746780072, 9.022487376880422, -5.7855767151072355, -10.8954779560467, 0.0, -15.0], [0.0, 12.414618490016993, 2.9690348923994866e-17, -15.0, -2.9690348923994816e-17, 2.5853815099829984], [0.00027652275295775297, 12.415654035617823, -1.1872013788716274e-16, -15.0, -0.9446544019897618, -0.9522395350203495]]),matrix([[0.0, 12.326403578344262, 9.465780001312059e-19, -15.0, -0.9999999999999999, -0.9999999999999999], [0.0, 12.326403578344264, 1.6594130749531725e-18, -15.0, -1.659413074953114e-18, 2.673596421655743], [4.6104204353739435, 4.61042043537393, -5.610420435373944, -5.610420435373918, 0.0, 15.0]])]
+def frame(t):
+ lframe=0
+ for x in V[t]:
+  lframe+=parametric_plot3d((x[0]+s*(x[1]-x[0]),x[2]+s*(x[3]-x[2]),x[4]+s*(x[5]-x[4])),(s,-1,1),color='yellow',radius=0.22499999999999998)
+ return lframe
+a=animate([implicit_plot3d((u(t)[0])*a^3+(u(t)[1])*b^3+(u(t)[2])*c^3+(u(t)[3])-(a+b+c+1)^3,(a,-15,15),(b,-15,15),(c,-15,15),plot_points=60)+frame(t) for t in srange(n+1)])
+a.interactive(online=True)
+				 </script>
+				</div>
+</div>
+
+	  <p>If you do anything interesting with the program, I'd love to hear about it! Also, if you find typos or have questions or concerns, please send me an email at daniel.koizumi[AT]utah.edu.</p>
+	  <p>This project was part of an <a href="https://www.math.utah.edu/undergraduate/research.php">Indpendent REU</a> with the University of Utah Department of Mathematics. If you're considering it, I can't guarantee that you'll experience gnarly surfaces, but I highly recommend it! </p>
+    </div>
+    <!--<div class="card">
+      <h2>TITLE HEADING</h2>
+      <h5>Title description, Sep 2, 2017</h5>
+      <div class="fakeimg" style="height:200px;">Image</div>
+      <p>Some text..</p>
+    </div>-->
+  <!--<div class="rightcolumn">
+    <div class="card">
+      <h2>About Me</h2>
+      <div class="fakeimg" style="height:100px;">Image</div>
+      <p>Some text about me in culpa qui officia deserunt mollit anim..</p>
+    </div>
+    <div class="card">
+      <h3>Popular Post</h3>
+      <div class="fakeimg">Image</div><br>
+      <div class="fakeimg">Image</div><br>
+      <div class="fakeimg">Image</div>
+    </div>
+    <div class="card">
+      <h3>Follow Me</h3>
+      <p>Some text..</p>
+    </div>
+  </div>-->
+</div>
+								<p></p>
+							</section>
+
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<section>
+						</section>
+						<section>
+							<h2>Contact Info</h2>
+							<dl class="alt">
+								<dt>Email</dt>
+								<dd>daniel.koizumi[AT]utah.edu</dd>
+							</dl>
+							<ul class="icons">
+								<li><a href="https://github.com/danielk011" class="icon brands fa-github alt"><span class="label">GitHub</span></a></li>
+							</ul>
+						</section>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
